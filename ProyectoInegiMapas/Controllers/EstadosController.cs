@@ -16,7 +16,7 @@ namespace ProyectoInegiMapas.Controllers
         public async Task<IActionResult> Index()
         {
             var estados = await _inegiService.ObtenerEstadosAsync();
-            return View(estados); // Necesitarás crear esta vista
+            return View(estados); 
         }
     }
 }

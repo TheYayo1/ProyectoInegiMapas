@@ -21,11 +21,28 @@
 
             var json = await response.Content.ReadAsStringAsync();
             var resultado = JsonSerializer.Deserialize<RespuestaEstado>(json);
-
             return resultado?.Datos ?? new List<Estado>();
         }
 
-        // Puedes seguir con Municipios, Localidades, etc. según el modelo
+        public async Task<List<Municipio>> ObtenerMunicipiosAsync(string cveEstado)
+        {
+            var response = await _httpClient.GetAsync($"https://gaia.inegi.org.mx/wscatgeo/v2/mgee/entidad/{cveEstado}");
+            response.EnsureSuccessStatusCode();
+
+            var json = await response.Content.ReadAsStringAsync();
+            var resultado = JsonSerializer.Deserialize<RespuestaMunicipio>(json);
+            return resultado?.Datos ?? new List<Municipio>();
+        }
+
+        public async Task<List<Localidad>> ObtenerLocalidadesAsync(string cveEstado, string cveMunicipio)
+        {
+            var response = await _httpClient.GetAsync($"https://gaia.inegi.org.mx/wscatgeo/v2/mgee/entidad/{cveEstado}/municipio/{cveMunicipio}");
+            response.EnsureSuccessStatusCode();
+
+            var json = await response.Content.ReadAsStringAsync();
+            var resultado = JsonSerializer.Deserialize<RespuestaLocalidad>(json);
+            return resultado?.Datos ?? new List<Localidad>();
+        }
     }
 
-}
+    }
