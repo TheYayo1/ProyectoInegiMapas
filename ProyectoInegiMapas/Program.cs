@@ -1,7 +1,10 @@
+using ProyectoInegiMapas.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpClient<InegiApiService>();
 
 var app = builder.Build();
 
